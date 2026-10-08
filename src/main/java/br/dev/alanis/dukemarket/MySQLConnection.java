@@ -1,0 +1,54 @@
+package br.dev.alanis.dukemarket;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
+
+
+
+
+
+
+
+
+/**
+ *
+ * @author sesi2dia
+ */
+public class MySQLConnection {
+    
+    private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
+    private static final String URL = "jdbc:mysql://172.16.0.30:3306/alanis_estoque";
+    
+    private static final String USER = "<alanis>";
+    private static final String PASS = "<2diSenai>";
+    
+    public static Connection getConnection() {
+        try {
+            Class.forName(DRIVER);
+            return DriverManager.getConnection(URL, USER, PASS);
+        } catch (SQLException ex) {
+            throw new RuntimeException("Erro na Conexão com o Banco de Dados. Verifique!", ex);
+        } catch (ClassNotFoundException ex) {
+            throw new RuntimeException("Falha na carga do Driver", ex);
+        }
+    }
+    
+    public static void closeConnection(Connection conn) {
+        try {
+            if (conn != null) {
+                conn.close();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(
+                    MySQLConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    // Parei no 4.3.3.1 copiei só o código
+    
+}
